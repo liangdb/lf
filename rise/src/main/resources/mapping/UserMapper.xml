@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.User" >
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userRealName" property="userrealname" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="usersex" property="usersex" jdbcType="VARCHAR" />
+    <result column="passWord" property="password" jdbcType="VARCHAR" />
+    <result column="userSignature" property="usersignature" jdbcType="VARCHAR" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
+    <result column="userQQ" property="userqq" jdbcType="VARCHAR" />
+    <result column="userEmial" property="useremial" jdbcType="VARCHAR" />
+    <result column="userCollection" property="usercollection" jdbcType="VARCHAR" />
+    <result column="userBankCard" property="userbankcard" jdbcType="VARCHAR" />
+    <result column="userState" property="userstate" jdbcType="VARCHAR" />
+    <result column="userLastLogin" property="userlastlogin" jdbcType="VARCHAR" />
+    <result column="userIP" property="userip" jdbcType="VARCHAR" />
+    <result column="userPaypassword" property="userpaypassword" jdbcType="VARCHAR" />
+    <result column="userBalance" property="userbalance" jdbcType="VARCHAR" />
+    <result column="isVIP" property="isvip" jdbcType="VARCHAR" />
+    <result column="userVideo" property="uservideo" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.User" extends="BaseResultMap" >
+    <result column="userHeadIcon" property="userheadicon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userId, userRealName, userName, usersex, passWord, userSignature, userAddress, userPhone, 
+    userQQ, userEmial, userCollection, userBankCard, userState, userLastLogin, userIP, 
+    userPaypassword, userBalance, isVIP, userVideo, columnOne, columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    userHeadIcon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from USER_INFO
+    where userId = #{userid,jdbcType=VARCHAR}
+  </select>
+  <!--查所有用户基本信息-->
+  <select id="findAll" resultMap="BaseResultMap">
+  select
+    <include refid="Base_Column_List" />
+    FROM
+    USER_INFO
+  </select>
+  <!--男女比例-->
+  <select id="sexRatio" resultType="java.lang.Double">
+SELECT
+sum(case when sex=0 then 1.00 else 0.00 end)*1.0/count(*)
+FROM  USER_INFO
+  </select>
+  <!--真实姓名-->
+  <select id="findByRealNameLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    USER_INFO
+    WHERE  userRealName LIKE #{userRealName,jdbcType=VARCHAR}
+  </select>
+  <!--地址-->
+  <select id="findByAddressLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    USER_INFO
+    WHERE  userAddress LIKE #{userAddress,jdbcType=VARCHAR}
+  </select>
+  <!--userName-->
+  <select id="findByUserNameLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM
+    USER_INFO
+    WHERE  userName LIKE #{userName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from USER_INFO
+    where userId = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.User" >
+    insert into USER_INFO (userId, userRealName, userName, 
+      usersex, passWord, userSignature, 
+      userAddress, userPhone, userQQ, 
+      userEmial, userCollection, userBankCard, 
+      userState, userLastLogin, userIP, 
+      userPaypassword, userBalance, isVIP, 
+      userVideo, columnOne, columnTwo, 
+      userHeadIcon)
+    values (#{userid,jdbcType=VARCHAR}, #{userrealname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{usersex,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{usersignature,jdbcType=VARCHAR}, 
+      #{useraddress,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, #{userqq,jdbcType=VARCHAR}, 
+      #{useremial,jdbcType=VARCHAR}, #{usercollection,jdbcType=VARCHAR}, #{userbankcard,jdbcType=VARCHAR}, 
+      #{userstate,jdbcType=VARCHAR}, #{userlastlogin,jdbcType=VARCHAR}, #{userip,jdbcType=VARCHAR}, 
+      #{userpaypassword,jdbcType=VARCHAR}, #{userbalance,jdbcType=VARCHAR}, #{isvip,jdbcType=VARCHAR}, 
+      #{uservideo,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, #{columntwo,jdbcType=VARCHAR}, 
+      #{userheadicon,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.User" >
+    insert into USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="userrealname != null" >
+        userRealName,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="usersex != null" >
+        usersex,
+      </if>
+      <if test="password != null" >
+        passWord,
+      </if>
+      <if test="usersignature != null" >
+        userSignature,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="userphone != null" >
+        userPhone,
+      </if>
+      <if test="userqq != null" >
+        userQQ,
+      </if>
+      <if test="useremial != null" >
+        userEmial,
+      </if>
+      <if test="usercollection != null" >
+        userCollection,
+      </if>
+      <if test="userbankcard != null" >
+        userBankCard,
+      </if>
+      <if test="userstate != null" >
+        userState,
+      </if>
+      <if test="userlastlogin != null" >
+        userLastLogin,
+      </if>
+      <if test="userip != null" >
+        userIP,
+      </if>
+      <if test="userpaypassword != null" >
+        userPaypassword,
+      </if>
+      <if test="userbalance != null" >
+        userBalance,
+      </if>
+      <if test="isvip != null" >
+        isVIP,
+      </if>
+      <if test="uservideo != null" >
+        userVideo,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="userheadicon != null" >
+        userHeadIcon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="userrealname != null" >
+        #{userrealname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usersignature != null" >
+        #{usersignature,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userqq != null" >
+        #{userqq,jdbcType=VARCHAR},
+      </if>
+      <if test="useremial != null" >
+        #{useremial,jdbcType=VARCHAR},
+      </if>
+      <if test="usercollection != null" >
+        #{usercollection,jdbcType=VARCHAR},
+      </if>
+      <if test="userbankcard != null" >
+        #{userbankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="userlastlogin != null" >
+        #{userlastlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userip != null" >
+        #{userip,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaypassword != null" >
+        #{userpaypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userbalance != null" >
+        #{userbalance,jdbcType=VARCHAR},
+      </if>
+      <if test="isvip != null" >
+        #{isvip,jdbcType=VARCHAR},
+      </if>
+      <if test="uservideo != null" >
+        #{uservideo,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="userheadicon != null" >
+        #{userheadicon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.User" >
+    update USER_INFO
+    <set >
+      <if test="userrealname != null" >
+        userRealName = #{userrealname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        usersex = #{usersex,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        passWord = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usersignature != null" >
+        userSignature = #{usersignature,jdbcType=VARCHAR},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userPhone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="userqq != null" >
+        userQQ = #{userqq,jdbcType=VARCHAR},
+      </if>
+      <if test="useremial != null" >
+        userEmial = #{useremial,jdbcType=VARCHAR},
+      </if>
+      <if test="usercollection != null" >
+        userCollection = #{usercollection,jdbcType=VARCHAR},
+      </if>
+      <if test="userbankcard != null" >
+        userBankCard = #{userbankcard,jdbcType=VARCHAR},
+      </if>
+      <if test="userstate != null" >
+        userState = #{userstate,jdbcType=VARCHAR},
+      </if>
+      <if test="userlastlogin != null" >
+        userLastLogin = #{userlastlogin,jdbcType=VARCHAR},
+      </if>
+      <if test="userip != null" >
+        userIP = #{userip,jdbcType=VARCHAR},
+      </if>
+      <if test="userpaypassword != null" >
+        userPaypassword = #{userpaypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userbalance != null" >
+        userBalance = #{userbalance,jdbcType=VARCHAR},
+      </if>
+      <if test="isvip != null" >
+        isVIP = #{isvip,jdbcType=VARCHAR},
+      </if>
+      <if test="uservideo != null" >
+        userVideo = #{uservideo,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="userheadicon != null" >
+        userHeadIcon = #{userheadicon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.User" >
+    update USER_INFO
+    set userRealName = #{userrealname,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      usersex = #{usersex,jdbcType=VARCHAR},
+      passWord = #{password,jdbcType=VARCHAR},
+      userSignature = #{usersignature,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      userQQ = #{userqq,jdbcType=VARCHAR},
+      userEmial = #{useremial,jdbcType=VARCHAR},
+      userCollection = #{usercollection,jdbcType=VARCHAR},
+      userBankCard = #{userbankcard,jdbcType=VARCHAR},
+      userState = #{userstate,jdbcType=VARCHAR},
+      userLastLogin = #{userlastlogin,jdbcType=VARCHAR},
+      userIP = #{userip,jdbcType=VARCHAR},
+      userPaypassword = #{userpaypassword,jdbcType=VARCHAR},
+      userBalance = #{userbalance,jdbcType=VARCHAR},
+      isVIP = #{isvip,jdbcType=VARCHAR},
+      userVideo = #{uservideo,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      userHeadIcon = #{userheadicon,jdbcType=LONGVARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.User" >
+    update USER_INFO
+    set userRealName = #{userrealname,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      usersex = #{usersex,jdbcType=VARCHAR},
+      passWord = #{password,jdbcType=VARCHAR},
+      userSignature = #{usersignature,jdbcType=VARCHAR},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      userQQ = #{userqq,jdbcType=VARCHAR},
+      userEmial = #{useremial,jdbcType=VARCHAR},
+      userCollection = #{usercollection,jdbcType=VARCHAR},
+      userBankCard = #{userbankcard,jdbcType=VARCHAR},
+      userState = #{userstate,jdbcType=VARCHAR},
+      userLastLogin = #{userlastlogin,jdbcType=VARCHAR},
+      userIP = #{userip,jdbcType=VARCHAR},
+      userPaypassword = #{userpaypassword,jdbcType=VARCHAR},
+      userBalance = #{userbalance,jdbcType=VARCHAR},
+      isVIP = #{isvip,jdbcType=VARCHAR},
+      userVideo = #{uservideo,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

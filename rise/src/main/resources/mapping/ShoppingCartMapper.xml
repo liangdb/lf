@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.ShoppingCartMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.ShoppingCart" >
+    <id column="cartId" property="cartid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="CartGoodsId" property="cartgoodsid" jdbcType="VARCHAR" />
+    <result column="CartGoodsName" property="cartgoodsname" jdbcType="VARCHAR" />
+    <result column="CartGoodsImg" property="cartgoodsimg" jdbcType="VARCHAR" />
+    <result column="CartGoodsprice" property="cartgoodsprice" jdbcType="VARCHAR" />
+    <result column="CartGoosQuantity" property="cartgoosquantity" jdbcType="INTEGER" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cartId, userId, userName, CartGoodsId, CartGoodsName, CartGoodsImg, CartGoodsprice, 
+    CartGoosQuantity, columnOne, columnTwo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SHOPPING_CART
+    where cartId = #{cartid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SHOPPING_CART
+    where cartId = #{cartid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.ShoppingCart" >
+    insert into SHOPPING_CART (cartId, userId, userName, 
+      CartGoodsId, CartGoodsName, CartGoodsImg, 
+      CartGoodsprice, CartGoosQuantity, columnOne, 
+      columnTwo)
+    values (#{cartid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{cartgoodsid,jdbcType=VARCHAR}, #{cartgoodsname,jdbcType=VARCHAR}, #{cartgoodsimg,jdbcType=VARCHAR}, 
+      #{cartgoodsprice,jdbcType=VARCHAR}, #{cartgoosquantity,jdbcType=INTEGER}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.ShoppingCart" >
+    insert into SHOPPING_CART
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cartid != null" >
+        cartId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="cartgoodsid != null" >
+        CartGoodsId,
+      </if>
+      <if test="cartgoodsname != null" >
+        CartGoodsName,
+      </if>
+      <if test="cartgoodsimg != null" >
+        CartGoodsImg,
+      </if>
+      <if test="cartgoodsprice != null" >
+        CartGoodsprice,
+      </if>
+      <if test="cartgoosquantity != null" >
+        CartGoosQuantity,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cartid != null" >
+        #{cartid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsid != null" >
+        #{cartgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsname != null" >
+        #{cartgoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsimg != null" >
+        #{cartgoodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsprice != null" >
+        #{cartgoodsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoosquantity != null" >
+        #{cartgoosquantity,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.ShoppingCart" >
+    update SHOPPING_CART
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsid != null" >
+        CartGoodsId = #{cartgoodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsname != null" >
+        CartGoodsName = #{cartgoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsimg != null" >
+        CartGoodsImg = #{cartgoodsimg,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoodsprice != null" >
+        CartGoodsprice = #{cartgoodsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="cartgoosquantity != null" >
+        CartGoosQuantity = #{cartgoosquantity,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cartId = #{cartid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.ShoppingCart" >
+    update SHOPPING_CART
+    set userId = #{userid,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      CartGoodsId = #{cartgoodsid,jdbcType=VARCHAR},
+      CartGoodsName = #{cartgoodsname,jdbcType=VARCHAR},
+      CartGoodsImg = #{cartgoodsimg,jdbcType=VARCHAR},
+      CartGoodsprice = #{cartgoodsprice,jdbcType=VARCHAR},
+      CartGoosQuantity = #{cartgoosquantity,jdbcType=INTEGER},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where cartId = #{cartid,jdbcType=VARCHAR}
+  </update>
+</mapper>

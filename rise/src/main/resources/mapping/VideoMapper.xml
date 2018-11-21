@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.VideoMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.Video" >
+    <id column="videoId" property="videoid" jdbcType="VARCHAR" />
+    <result column="videoName" property="videoname" jdbcType="VARCHAR" />
+    <result column="videoCategory" property="videocategory" jdbcType="VARCHAR" />
+    <result column="videoStar" property="videostar" jdbcType="INTEGER" />
+    <result column="videoViewCounts" property="videoviewcounts" jdbcType="INTEGER" />
+    <result column="videoTime" property="videotime" jdbcType="VARCHAR" />
+    <result column="videoUploadingTime" property="videouploadingtime" jdbcType="VARCHAR" />
+    <result column="videoState" property="videostate" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.VideoWithBLOBs" extends="BaseResultMap" >
+    <result column="videoImage" property="videoimage" jdbcType="LONGVARCHAR" />
+    <result column="videoAddress" property="videoaddress" jdbcType="LONGVARCHAR" />
+    <result column="videoCollection" property="videocollection" jdbcType="LONGVARCHAR" />
+    <result column="videoLeavingMessage" property="videoleavingmessage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    videoId, videoName, videoCategory, videoStar, videoViewCounts, videoTime, videoUploadingTime, 
+    videoState, columnOne, columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    videoImage, videoAddress, videoCollection, videoLeavingMessage
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from VIDEO_INFO
+    where videoId = #{videoid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from VIDEO_INFO
+    where videoId = #{videoid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.VideoWithBLOBs" >
+    insert into VIDEO_INFO (videoId, videoName, videoCategory, 
+      videoStar, videoViewCounts, videoTime, 
+      videoUploadingTime, videoState, columnOne, 
+      columnTwo, videoImage, videoAddress, 
+      videoCollection, videoLeavingMessage
+      )
+    values (#{videoid,jdbcType=VARCHAR}, #{videoname,jdbcType=VARCHAR}, #{videocategory,jdbcType=VARCHAR}, 
+      #{videostar,jdbcType=INTEGER}, #{videoviewcounts,jdbcType=INTEGER}, #{videotime,jdbcType=VARCHAR}, 
+      #{videouploadingtime,jdbcType=VARCHAR}, #{videostate,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR}, #{videoimage,jdbcType=LONGVARCHAR}, #{videoaddress,jdbcType=LONGVARCHAR}, 
+      #{videocollection,jdbcType=LONGVARCHAR}, #{videoleavingmessage,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.VideoWithBLOBs" >
+    insert into VIDEO_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="videoid != null" >
+        videoId,
+      </if>
+      <if test="videoname != null" >
+        videoName,
+      </if>
+      <if test="videocategory != null" >
+        videoCategory,
+      </if>
+      <if test="videostar != null" >
+        videoStar,
+      </if>
+      <if test="videoviewcounts != null" >
+        videoViewCounts,
+      </if>
+      <if test="videotime != null" >
+        videoTime,
+      </if>
+      <if test="videouploadingtime != null" >
+        videoUploadingTime,
+      </if>
+      <if test="videostate != null" >
+        videoState,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="videoimage != null" >
+        videoImage,
+      </if>
+      <if test="videoaddress != null" >
+        videoAddress,
+      </if>
+      <if test="videocollection != null" >
+        videoCollection,
+      </if>
+      <if test="videoleavingmessage != null" >
+        videoLeavingMessage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="videoid != null" >
+        #{videoid,jdbcType=VARCHAR},
+      </if>
+      <if test="videoname != null" >
+        #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videocategory != null" >
+        #{videocategory,jdbcType=VARCHAR},
+      </if>
+      <if test="videostar != null" >
+        #{videostar,jdbcType=INTEGER},
+      </if>
+      <if test="videoviewcounts != null" >
+        #{videoviewcounts,jdbcType=INTEGER},
+      </if>
+      <if test="videotime != null" >
+        #{videotime,jdbcType=VARCHAR},
+      </if>
+      <if test="videouploadingtime != null" >
+        #{videouploadingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="videostate != null" >
+        #{videostate,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="videoimage != null" >
+        #{videoimage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoaddress != null" >
+        #{videoaddress,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videocollection != null" >
+        #{videocollection,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoleavingmessage != null" >
+        #{videoleavingmessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.VideoWithBLOBs" >
+    update VIDEO_INFO
+    <set >
+      <if test="videoname != null" >
+        videoName = #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videocategory != null" >
+        videoCategory = #{videocategory,jdbcType=VARCHAR},
+      </if>
+      <if test="videostar != null" >
+        videoStar = #{videostar,jdbcType=INTEGER},
+      </if>
+      <if test="videoviewcounts != null" >
+        videoViewCounts = #{videoviewcounts,jdbcType=INTEGER},
+      </if>
+      <if test="videotime != null" >
+        videoTime = #{videotime,jdbcType=VARCHAR},
+      </if>
+      <if test="videouploadingtime != null" >
+        videoUploadingTime = #{videouploadingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="videostate != null" >
+        videoState = #{videostate,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="videoimage != null" >
+        videoImage = #{videoimage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoaddress != null" >
+        videoAddress = #{videoaddress,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videocollection != null" >
+        videoCollection = #{videocollection,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videoleavingmessage != null" >
+        videoLeavingMessage = #{videoleavingmessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where videoId = #{videoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.VideoWithBLOBs" >
+    update VIDEO_INFO
+    set videoName = #{videoname,jdbcType=VARCHAR},
+      videoCategory = #{videocategory,jdbcType=VARCHAR},
+      videoStar = #{videostar,jdbcType=INTEGER},
+      videoViewCounts = #{videoviewcounts,jdbcType=INTEGER},
+      videoTime = #{videotime,jdbcType=VARCHAR},
+      videoUploadingTime = #{videouploadingtime,jdbcType=VARCHAR},
+      videoState = #{videostate,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      videoImage = #{videoimage,jdbcType=LONGVARCHAR},
+      videoAddress = #{videoaddress,jdbcType=LONGVARCHAR},
+      videoCollection = #{videocollection,jdbcType=LONGVARCHAR},
+      videoLeavingMessage = #{videoleavingmessage,jdbcType=LONGVARCHAR}
+    where videoId = #{videoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.Video" >
+    update VIDEO_INFO
+    set videoName = #{videoname,jdbcType=VARCHAR},
+      videoCategory = #{videocategory,jdbcType=VARCHAR},
+      videoStar = #{videostar,jdbcType=INTEGER},
+      videoViewCounts = #{videoviewcounts,jdbcType=INTEGER},
+      videoTime = #{videotime,jdbcType=VARCHAR},
+      videoUploadingTime = #{videouploadingtime,jdbcType=VARCHAR},
+      videoState = #{videostate,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where videoId = #{videoid,jdbcType=VARCHAR}
+  </update>
+</mapper>

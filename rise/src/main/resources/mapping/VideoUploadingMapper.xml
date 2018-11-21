@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.VideoUploadingMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.VideoUploading" >
+    <id column="fileId" property="fileid" jdbcType="VARCHAR" />
+    <result column="fileName" property="filename" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="percent" property="percent" jdbcType="INTEGER" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.VideoUploadingWithBLOBs" extends="BaseResultMap" >
+    <result column="fileSize" property="filesize" jdbcType="LONGVARCHAR" />
+    <result column="fileResidue" property="fileresidue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fileId, fileName, flag, percent, columnOne, columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    fileSize, fileResidue
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from VIDEO_UPLOADING_INFO
+    where fileId = #{fileid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from VIDEO_UPLOADING_INFO
+    where fileId = #{fileid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.VideoUploadingWithBLOBs" >
+    insert into VIDEO_UPLOADING_INFO (fileId, fileName, flag, 
+      percent, columnOne, columnTwo, 
+      fileSize, fileResidue)
+    values (#{fileid,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, 
+      #{percent,jdbcType=INTEGER}, #{columnone,jdbcType=VARCHAR}, #{columntwo,jdbcType=VARCHAR}, 
+      #{filesize,jdbcType=LONGVARCHAR}, #{fileresidue,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.VideoUploadingWithBLOBs" >
+    insert into VIDEO_UPLOADING_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        fileId,
+      </if>
+      <if test="filename != null" >
+        fileName,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="percent != null" >
+        percent,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="filesize != null" >
+        fileSize,
+      </if>
+      <if test="fileresidue != null" >
+        fileResidue,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileid != null" >
+        #{fileid,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null" >
+        #{filesize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileresidue != null" >
+        #{fileresidue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.VideoUploadingWithBLOBs" >
+    update VIDEO_UPLOADING_INFO
+    <set >
+      <if test="filename != null" >
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        percent = #{percent,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null" >
+        fileSize = #{filesize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fileresidue != null" >
+        fileResidue = #{fileresidue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fileId = #{fileid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.VideoUploadingWithBLOBs" >
+    update VIDEO_UPLOADING_INFO
+    set fileName = #{filename,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      percent = #{percent,jdbcType=INTEGER},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      fileSize = #{filesize,jdbcType=LONGVARCHAR},
+      fileResidue = #{fileresidue,jdbcType=LONGVARCHAR}
+    where fileId = #{fileid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.VideoUploading" >
+    update VIDEO_UPLOADING_INFO
+    set fileName = #{filename,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      percent = #{percent,jdbcType=INTEGER},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where fileId = #{fileid,jdbcType=VARCHAR}
+  </update>
+</mapper>

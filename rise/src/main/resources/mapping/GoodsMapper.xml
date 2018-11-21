@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.Goods" >
+    <id column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="goodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsprice" property="goodsprice" jdbcType="VARCHAR" />
+    <result column="goodsDesc" property="goodsdesc" jdbcType="VARCHAR" />
+    <result column="goodsIconAddress" property="goodsiconaddress" jdbcType="VARCHAR" />
+    <result column="goodsRepertory" property="goodsrepertory" jdbcType="INTEGER" />
+    <result column="goodsCategory" property="goodscategory" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsId, goodsName, goodsprice, goodsDesc, goodsIconAddress, goodsRepertory, goodsCategory, 
+    columnOne, columnTwo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from GOODS_INFO
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from GOODS_INFO
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.Goods" >
+    insert into GOODS_INFO (goodsId, goodsName, goodsprice, 
+      goodsDesc, goodsIconAddress, goodsRepertory, 
+      goodsCategory, columnOne, columnTwo
+      )
+    values (#{goodsid,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{goodsprice,jdbcType=VARCHAR}, 
+      #{goodsdesc,jdbcType=VARCHAR}, #{goodsiconaddress,jdbcType=VARCHAR}, #{goodsrepertory,jdbcType=INTEGER}, 
+      #{goodscategory,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, #{columntwo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.Goods" >
+    insert into GOODS_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="goodsname != null" >
+        goodsName,
+      </if>
+      <if test="goodsprice != null" >
+        goodsprice,
+      </if>
+      <if test="goodsdesc != null" >
+        goodsDesc,
+      </if>
+      <if test="goodsiconaddress != null" >
+        goodsIconAddress,
+      </if>
+      <if test="goodsrepertory != null" >
+        goodsRepertory,
+      </if>
+      <if test="goodscategory != null" >
+        goodsCategory,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        #{goodsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdesc != null" >
+        #{goodsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsiconaddress != null" >
+        #{goodsiconaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsrepertory != null" >
+        #{goodsrepertory,jdbcType=INTEGER},
+      </if>
+      <if test="goodscategory != null" >
+        #{goodscategory,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.Goods" >
+    update GOODS_INFO
+    <set >
+      <if test="goodsname != null" >
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsprice != null" >
+        goodsprice = #{goodsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsdesc != null" >
+        goodsDesc = #{goodsdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsiconaddress != null" >
+        goodsIconAddress = #{goodsiconaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsrepertory != null" >
+        goodsRepertory = #{goodsrepertory,jdbcType=INTEGER},
+      </if>
+      <if test="goodscategory != null" >
+        goodsCategory = #{goodscategory,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.Goods" >
+    update GOODS_INFO
+    set goodsName = #{goodsname,jdbcType=VARCHAR},
+      goodsprice = #{goodsprice,jdbcType=VARCHAR},
+      goodsDesc = #{goodsdesc,jdbcType=VARCHAR},
+      goodsIconAddress = #{goodsiconaddress,jdbcType=VARCHAR},
+      goodsRepertory = #{goodsrepertory,jdbcType=INTEGER},
+      goodsCategory = #{goodscategory,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

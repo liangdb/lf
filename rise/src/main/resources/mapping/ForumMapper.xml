@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.ForumMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.Forum" >
+    <id column="forumId" property="forumid" jdbcType="VARCHAR" />
+    <result column="forumUserName" property="forumusername" jdbcType="VARCHAR" />
+    <result column="forumReleaseTime" property="forumreleasetime" jdbcType="VARCHAR" />
+    <result column="forumCategory" property="forumcategory" jdbcType="VARCHAR" />
+    <result column="forumAmount" property="forumamount" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.ForumWithBLOBs" extends="BaseResultMap" >
+    <result column="forumTitle" property="forumtitle" jdbcType="LONGVARCHAR" />
+    <result column="forumMessage" property="forummessage" jdbcType="LONGVARCHAR" />
+    <result column="firumIcon" property="firumicon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    forumId, forumUserName, forumReleaseTime, forumCategory, forumAmount, columnOne, 
+    columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    forumTitle, forumMessage, firumIcon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FORUM_INFO
+    where forumId = #{forumid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FORUM_INFO
+    where forumId = #{forumid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.ForumWithBLOBs" >
+    insert into FORUM_INFO (forumId, forumUserName, forumReleaseTime, 
+      forumCategory, forumAmount, columnOne, 
+      columnTwo, forumTitle, forumMessage, 
+      firumIcon)
+    values (#{forumid,jdbcType=VARCHAR}, #{forumusername,jdbcType=VARCHAR}, #{forumreleasetime,jdbcType=VARCHAR}, 
+      #{forumcategory,jdbcType=VARCHAR}, #{forumamount,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR}, #{forumtitle,jdbcType=LONGVARCHAR}, #{forummessage,jdbcType=LONGVARCHAR}, 
+      #{firumicon,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.ForumWithBLOBs" >
+    insert into FORUM_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="forumid != null" >
+        forumId,
+      </if>
+      <if test="forumusername != null" >
+        forumUserName,
+      </if>
+      <if test="forumreleasetime != null" >
+        forumReleaseTime,
+      </if>
+      <if test="forumcategory != null" >
+        forumCategory,
+      </if>
+      <if test="forumamount != null" >
+        forumAmount,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="forumtitle != null" >
+        forumTitle,
+      </if>
+      <if test="forummessage != null" >
+        forumMessage,
+      </if>
+      <if test="firumicon != null" >
+        firumIcon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="forumid != null" >
+        #{forumid,jdbcType=VARCHAR},
+      </if>
+      <if test="forumusername != null" >
+        #{forumusername,jdbcType=VARCHAR},
+      </if>
+      <if test="forumreleasetime != null" >
+        #{forumreleasetime,jdbcType=VARCHAR},
+      </if>
+      <if test="forumcategory != null" >
+        #{forumcategory,jdbcType=VARCHAR},
+      </if>
+      <if test="forumamount != null" >
+        #{forumamount,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="forumtitle != null" >
+        #{forumtitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="forummessage != null" >
+        #{forummessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="firumicon != null" >
+        #{firumicon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.ForumWithBLOBs" >
+    update FORUM_INFO
+    <set >
+      <if test="forumusername != null" >
+        forumUserName = #{forumusername,jdbcType=VARCHAR},
+      </if>
+      <if test="forumreleasetime != null" >
+        forumReleaseTime = #{forumreleasetime,jdbcType=VARCHAR},
+      </if>
+      <if test="forumcategory != null" >
+        forumCategory = #{forumcategory,jdbcType=VARCHAR},
+      </if>
+      <if test="forumamount != null" >
+        forumAmount = #{forumamount,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="forumtitle != null" >
+        forumTitle = #{forumtitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="forummessage != null" >
+        forumMessage = #{forummessage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="firumicon != null" >
+        firumIcon = #{firumicon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where forumId = #{forumid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.ForumWithBLOBs" >
+    update FORUM_INFO
+    set forumUserName = #{forumusername,jdbcType=VARCHAR},
+      forumReleaseTime = #{forumreleasetime,jdbcType=VARCHAR},
+      forumCategory = #{forumcategory,jdbcType=VARCHAR},
+      forumAmount = #{forumamount,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      forumTitle = #{forumtitle,jdbcType=LONGVARCHAR},
+      forumMessage = #{forummessage,jdbcType=LONGVARCHAR},
+      firumIcon = #{firumicon,jdbcType=LONGVARCHAR}
+    where forumId = #{forumid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.Forum" >
+    update FORUM_INFO
+    set forumUserName = #{forumusername,jdbcType=VARCHAR},
+      forumReleaseTime = #{forumreleasetime,jdbcType=VARCHAR},
+      forumCategory = #{forumcategory,jdbcType=VARCHAR},
+      forumAmount = #{forumamount,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where forumId = #{forumid,jdbcType=VARCHAR}
+  </update>
+</mapper>

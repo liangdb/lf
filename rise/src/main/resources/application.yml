@@ -1,0 +1,13 @@
+#server:
+#  port: 8888
+spring:
+  redis:
+    host: 47.106.245.123
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: peng1234
+    url: jdbc:mysql://47.106.245.123:3306/bilibili?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #日志

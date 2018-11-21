@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.Order" >
+    <id column="orderId" property="orderid" jdbcType="VARCHAR" />
+    <result column="orderUserName" property="orderusername" jdbcType="VARCHAR" />
+    <result column="orderLeaveMessage" property="orderleavemessage" jdbcType="VARCHAR" />
+    <result column="orderGoosIcon" property="ordergoosicon" jdbcType="VARCHAR" />
+    <result column="orderGoosQuantity" property="ordergoosquantity" jdbcType="INTEGER" />
+    <result column="orderSumPrice" property="ordersumprice" jdbcType="VARCHAR" />
+    <result column="orderState" property="orderstate" jdbcType="VARCHAR" />
+    <result column="orderTime" property="ordertime" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.Order" extends="BaseResultMap" >
+    <result column="orderAddress" property="orderaddress" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderId, orderUserName, orderLeaveMessage, orderGoosIcon, orderGoosQuantity, orderSumPrice, 
+    orderState, orderTime, columnOne, columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    orderAddress
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ORDER_INFO
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ORDER_INFO
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.Order" >
+    insert into ORDER_INFO (orderId, orderUserName, orderLeaveMessage, 
+      orderGoosIcon, orderGoosQuantity, orderSumPrice, 
+      orderState, orderTime, columnOne, 
+      columnTwo, orderAddress)
+    values (#{orderid,jdbcType=VARCHAR}, #{orderusername,jdbcType=VARCHAR}, #{orderleavemessage,jdbcType=VARCHAR}, 
+      #{ordergoosicon,jdbcType=VARCHAR}, #{ordergoosquantity,jdbcType=INTEGER}, #{ordersumprice,jdbcType=VARCHAR}, 
+      #{orderstate,jdbcType=VARCHAR}, #{ordertime,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR}, #{orderaddress,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.Order" >
+    insert into ORDER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="orderusername != null" >
+        orderUserName,
+      </if>
+      <if test="orderleavemessage != null" >
+        orderLeaveMessage,
+      </if>
+      <if test="ordergoosicon != null" >
+        orderGoosIcon,
+      </if>
+      <if test="ordergoosquantity != null" >
+        orderGoosQuantity,
+      </if>
+      <if test="ordersumprice != null" >
+        orderSumPrice,
+      </if>
+      <if test="orderstate != null" >
+        orderState,
+      </if>
+      <if test="ordertime != null" >
+        orderTime,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="orderaddress != null" >
+        orderAddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderusername != null" >
+        #{orderusername,jdbcType=VARCHAR},
+      </if>
+      <if test="orderleavemessage != null" >
+        #{orderleavemessage,jdbcType=VARCHAR},
+      </if>
+      <if test="ordergoosicon != null" >
+        #{ordergoosicon,jdbcType=VARCHAR},
+      </if>
+      <if test="ordergoosquantity != null" >
+        #{ordergoosquantity,jdbcType=INTEGER},
+      </if>
+      <if test="ordersumprice != null" >
+        #{ordersumprice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstate != null" >
+        #{orderstate,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderaddress != null" >
+        #{orderaddress,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.Order" >
+    update ORDER_INFO
+    <set >
+      <if test="orderusername != null" >
+        orderUserName = #{orderusername,jdbcType=VARCHAR},
+      </if>
+      <if test="orderleavemessage != null" >
+        orderLeaveMessage = #{orderleavemessage,jdbcType=VARCHAR},
+      </if>
+      <if test="ordergoosicon != null" >
+        orderGoosIcon = #{ordergoosicon,jdbcType=VARCHAR},
+      </if>
+      <if test="ordergoosquantity != null" >
+        orderGoosQuantity = #{ordergoosquantity,jdbcType=INTEGER},
+      </if>
+      <if test="ordersumprice != null" >
+        orderSumPrice = #{ordersumprice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstate != null" >
+        orderState = #{orderstate,jdbcType=VARCHAR},
+      </if>
+      <if test="ordertime != null" >
+        orderTime = #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderaddress != null" >
+        orderAddress = #{orderaddress,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.Order" >
+    update ORDER_INFO
+    set orderUserName = #{orderusername,jdbcType=VARCHAR},
+      orderLeaveMessage = #{orderleavemessage,jdbcType=VARCHAR},
+      orderGoosIcon = #{ordergoosicon,jdbcType=VARCHAR},
+      orderGoosQuantity = #{ordergoosquantity,jdbcType=INTEGER},
+      orderSumPrice = #{ordersumprice,jdbcType=VARCHAR},
+      orderState = #{orderstate,jdbcType=VARCHAR},
+      orderTime = #{ordertime,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      orderAddress = #{orderaddress,jdbcType=LONGVARCHAR}
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.Order" >
+    update ORDER_INFO
+    set orderUserName = #{orderusername,jdbcType=VARCHAR},
+      orderLeaveMessage = #{orderleavemessage,jdbcType=VARCHAR},
+      orderGoosIcon = #{ordergoosicon,jdbcType=VARCHAR},
+      orderGoosQuantity = #{ordergoosquantity,jdbcType=INTEGER},
+      orderSumPrice = #{ordersumprice,jdbcType=VARCHAR},
+      orderState = #{orderstate,jdbcType=VARCHAR},
+      orderTime = #{ordertime,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where orderId = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

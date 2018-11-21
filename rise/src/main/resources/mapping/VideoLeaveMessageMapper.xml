@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.VideoLeaveMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.VideoLeaveMessage" >
+    <id column="messageId" property="messageid" jdbcType="VARCHAR" />
+    <result column="messageVideoID" property="messagevideoid" jdbcType="VARCHAR" />
+    <result column="messageUserID" property="messageuserid" jdbcType="VARCHAR" />
+    <result column="messageUserName" property="messageusername" jdbcType="VARCHAR" />
+    <result column="messageTime" property="messagetime" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.VideoLeaveMessageWithBLOBs" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+    <result column="messageUserIcon" property="messageusericon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    messageId, messageVideoID, messageUserID, messageUserName, messageTime, columnOne, 
+    columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    message, messageUserIcon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from VIDEO_LEAVE_MESSAGE
+    where messageId = #{messageid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from VIDEO_LEAVE_MESSAGE
+    where messageId = #{messageid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.VideoLeaveMessageWithBLOBs" >
+    insert into VIDEO_LEAVE_MESSAGE (messageId, messageVideoID, messageUserID, 
+      messageUserName, messageTime, columnOne, 
+      columnTwo, message, messageUserIcon
+      )
+    values (#{messageid,jdbcType=VARCHAR}, #{messagevideoid,jdbcType=VARCHAR}, #{messageuserid,jdbcType=VARCHAR}, 
+      #{messageusername,jdbcType=VARCHAR}, #{messagetime,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR}, #{message,jdbcType=LONGVARCHAR}, #{messageusericon,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.VideoLeaveMessageWithBLOBs" >
+    insert into VIDEO_LEAVE_MESSAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        messageId,
+      </if>
+      <if test="messagevideoid != null" >
+        messageVideoID,
+      </if>
+      <if test="messageuserid != null" >
+        messageUserID,
+      </if>
+      <if test="messageusername != null" >
+        messageUserName,
+      </if>
+      <if test="messagetime != null" >
+        messageTime,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="messageusericon != null" >
+        messageUserIcon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        #{messageid,jdbcType=VARCHAR},
+      </if>
+      <if test="messagevideoid != null" >
+        #{messagevideoid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageuserid != null" >
+        #{messageuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageusername != null" >
+        #{messageusername,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetime != null" >
+        #{messagetime,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="messageusericon != null" >
+        #{messageusericon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.VideoLeaveMessageWithBLOBs" >
+    update VIDEO_LEAVE_MESSAGE
+    <set >
+      <if test="messagevideoid != null" >
+        messageVideoID = #{messagevideoid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageuserid != null" >
+        messageUserID = #{messageuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="messageusername != null" >
+        messageUserName = #{messageusername,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetime != null" >
+        messageTime = #{messagetime,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="messageusericon != null" >
+        messageUserIcon = #{messageusericon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where messageId = #{messageid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.VideoLeaveMessageWithBLOBs" >
+    update VIDEO_LEAVE_MESSAGE
+    set messageVideoID = #{messagevideoid,jdbcType=VARCHAR},
+      messageUserID = #{messageuserid,jdbcType=VARCHAR},
+      messageUserName = #{messageusername,jdbcType=VARCHAR},
+      messageTime = #{messagetime,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      message = #{message,jdbcType=LONGVARCHAR},
+      messageUserIcon = #{messageusericon,jdbcType=LONGVARCHAR}
+    where messageId = #{messageid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.VideoLeaveMessage" >
+    update VIDEO_LEAVE_MESSAGE
+    set messageVideoID = #{messagevideoid,jdbcType=VARCHAR},
+      messageUserID = #{messageuserid,jdbcType=VARCHAR},
+      messageUserName = #{messageusername,jdbcType=VARCHAR},
+      messageTime = #{messagetime,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where messageId = #{messageid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.ForumReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.ForumReply" >
+    <id column="replyId" property="replyid" jdbcType="VARCHAR" />
+    <result column="replyTime" property="replytime" jdbcType="VARCHAR" />
+    <result column="replyUserIcon" property="replyusericon" jdbcType="VARCHAR" />
+    <result column="replyForumId" property="replyforumid" jdbcType="VARCHAR" />
+    <result column="replyUserName" property="replyusername" jdbcType="VARCHAR" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.gourd.bilibili.rise.model.ForumReply" extends="BaseResultMap" >
+    <result column="replyContext" property="replycontext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    replyId, replyTime, replyUserIcon, replyForumId, replyUserName, columnOne, columnTwo
+  </sql>
+  <sql id="Blob_Column_List" >
+    replyContext
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FORUM_REPLY_INFO
+    where replyId = #{replyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from FORUM_REPLY_INFO
+    where replyId = #{replyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.ForumReply" >
+    insert into FORUM_REPLY_INFO (replyId, replyTime, replyUserIcon, 
+      replyForumId, replyUserName, columnOne, 
+      columnTwo, replyContext)
+    values (#{replyid,jdbcType=VARCHAR}, #{replytime,jdbcType=VARCHAR}, #{replyusericon,jdbcType=VARCHAR}, 
+      #{replyforumid,jdbcType=VARCHAR}, #{replyusername,jdbcType=VARCHAR}, #{columnone,jdbcType=VARCHAR}, 
+      #{columntwo,jdbcType=VARCHAR}, #{replycontext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.ForumReply" >
+    insert into FORUM_REPLY_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        replyId,
+      </if>
+      <if test="replytime != null" >
+        replyTime,
+      </if>
+      <if test="replyusericon != null" >
+        replyUserIcon,
+      </if>
+      <if test="replyforumid != null" >
+        replyForumId,
+      </if>
+      <if test="replyusername != null" >
+        replyUserName,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+      <if test="replycontext != null" >
+        replyContext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyid != null" >
+        #{replyid,jdbcType=VARCHAR},
+      </if>
+      <if test="replytime != null" >
+        #{replytime,jdbcType=VARCHAR},
+      </if>
+      <if test="replyusericon != null" >
+        #{replyusericon,jdbcType=VARCHAR},
+      </if>
+      <if test="replyforumid != null" >
+        #{replyforumid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyusername != null" >
+        #{replyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontext != null" >
+        #{replycontext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.ForumReply" >
+    update FORUM_REPLY_INFO
+    <set >
+      <if test="replytime != null" >
+        replyTime = #{replytime,jdbcType=VARCHAR},
+      </if>
+      <if test="replyusericon != null" >
+        replyUserIcon = #{replyusericon,jdbcType=VARCHAR},
+      </if>
+      <if test="replyforumid != null" >
+        replyForumId = #{replyforumid,jdbcType=VARCHAR},
+      </if>
+      <if test="replyusername != null" >
+        replyUserName = #{replyusername,jdbcType=VARCHAR},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+      <if test="replycontext != null" >
+        replyContext = #{replycontext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where replyId = #{replyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gourd.bilibili.rise.model.ForumReply" >
+    update FORUM_REPLY_INFO
+    set replyTime = #{replytime,jdbcType=VARCHAR},
+      replyUserIcon = #{replyusericon,jdbcType=VARCHAR},
+      replyForumId = #{replyforumid,jdbcType=VARCHAR},
+      replyUserName = #{replyusername,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR},
+      replyContext = #{replycontext,jdbcType=LONGVARCHAR}
+    where replyId = #{replyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.ForumReply" >
+    update FORUM_REPLY_INFO
+    set replyTime = #{replytime,jdbcType=VARCHAR},
+      replyUserIcon = #{replyusericon,jdbcType=VARCHAR},
+      replyForumId = #{replyforumid,jdbcType=VARCHAR},
+      replyUserName = #{replyusername,jdbcType=VARCHAR},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where replyId = #{replyid,jdbcType=VARCHAR}
+  </update>
+</mapper>

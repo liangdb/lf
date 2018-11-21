@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gourd.bilibili.rise.mapper.DataDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.gourd.bilibili.rise.model.DataDictionary" >
+    <id column="dataID" property="dataid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="typeName" property="typename" jdbcType="VARCHAR" />
+    <result column="parentId" property="parentid" jdbcType="INTEGER" />
+    <result column="columnOne" property="columnone" jdbcType="VARCHAR" />
+    <result column="columnTwo" property="columntwo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dataID, type, typeName, parentId, columnOne, columnTwo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from DATA_DICTIONARY_INFO
+    where dataID = #{dataid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from DATA_DICTIONARY_INFO
+    where dataID = #{dataid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gourd.bilibili.rise.model.DataDictionary" >
+    insert into DATA_DICTIONARY_INFO (dataID, type, typeName, 
+      parentId, columnOne, columnTwo
+      )
+    values (#{dataid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR}, 
+      #{parentid,jdbcType=INTEGER}, #{columnone,jdbcType=VARCHAR}, #{columntwo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gourd.bilibili.rise.model.DataDictionary" >
+    insert into DATA_DICTIONARY_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        dataID,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typename != null" >
+        typeName,
+      </if>
+      <if test="parentid != null" >
+        parentId,
+      </if>
+      <if test="columnone != null" >
+        columnOne,
+      </if>
+      <if test="columntwo != null" >
+        columnTwo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        #{dataid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gourd.bilibili.rise.model.DataDictionary" >
+    update DATA_DICTIONARY_INFO
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        typeName = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="columnone != null" >
+        columnOne = #{columnone,jdbcType=VARCHAR},
+      </if>
+      <if test="columntwo != null" >
+        columnTwo = #{columntwo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dataID = #{dataid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gourd.bilibili.rise.model.DataDictionary" >
+    update DATA_DICTIONARY_INFO
+    set type = #{type,jdbcType=VARCHAR},
+      typeName = #{typename,jdbcType=VARCHAR},
+      parentId = #{parentid,jdbcType=INTEGER},
+      columnOne = #{columnone,jdbcType=VARCHAR},
+      columnTwo = #{columntwo,jdbcType=VARCHAR}
+    where dataID = #{dataid,jdbcType=INTEGER}
+  </update>
+</mapper>
